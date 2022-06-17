@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </style>
 
 
+
 <style type="text/css">
   code {
     white-space: pre;
@@ -475,7 +476,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>We can generate a prioritization by solving the restoration problem object (i.e., <code>rp</code>).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># solve problem to generate prioritization</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a>rs &lt;-<span class="st"> </span><span class="kw">solve</span>(rp)</span></code></pre></div>
-<pre><code>## Good news: the solver found 1 solution statisfying the constraints that was proven optimal ! (solving time = 1.79 s)</code></pre>
+<pre><code>## Good news: the solver found 1 solution statisfying the constraints that was proven optimal ! (solving time = 1.99 s)</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># preview prioritization</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="kw">print</span>(rs)</span></code></pre></div>
 <pre><code>## class       : RestoptSolution 
@@ -485,14 +486,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## coord. ref. : RGNC91-93 / Lambert New Caledonia (EPSG:3163) 
 ## source      : memory 
 ## name        :  Solution 1 
-## min value   :   Available 
+## min value   :  Locked out 
 ## max value   : Restoration</code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># display summary statistics for the prioritization</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="kw">print</span>(<span class="kw">get_metadata</span>(rs))</span></code></pre></div>
 <pre><code>##     min_restore total_restorable nb_planning_units nb_components     diameter
 ## 1 219.2941 [ha]    219.2941 [ha]                16             3 2499.808 [m]
 ##   optimality_proven search_state solving_time  mesh_initial          mesh
-## 1              TRUE   TERMINATED        1.727 13667.84 [ha] 14248.14 [ha]
+## 1              TRUE   TERMINATED        1.974 13667.84 [ha] 14248.14 [ha]
 ##       mesh_best
 ## 1 14248.14 [ha]</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># visualize prioritization</span></span>
@@ -513,7 +514,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <pre><code>##     min_restore total_restorable nb_planning_units nb_components     diameter
 ## 1 219.2941 [ha]    219.2941 [ha]                16             3 2499.808 [m]
 ##   optimality_proven search_state solving_time  mesh_initial          mesh
-## 1              TRUE   TERMINATED        1.727 13667.84 [ha] 14248.14 [ha]
+## 1              TRUE   TERMINATED        1.974 13667.84 [ha] 14248.14 [ha]
 ##       mesh_best
 ## 1 14248.14 [ha]</code></pre>
 <p>Although this prioritization identifies a set of places that – in combination – can help promote connectivity, it does not necessarily tell us which of these places are more (or less) important for achieving this objective.</p>
@@ -539,7 +540,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ##               memory  
 ##               ... and 5 more source(s)
 ## names       :  Solution 1,  Solution 2,  Solution 3,  Solution 4,  Solution 5,  Solution 6, ... 
-## min values  :   Available,   Available,   Available,   Available,   Available,   Available, ... 
+## min values  :  Locked out,  Locked out,  Locked out,  Locked out,  Locked out,  Locked out, ... 
 ## max values  : Restoration, Restoration, Restoration, Restoration, Restoration, Restoration, ...</code></pre>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># calculate selection frequency of from portfolio</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a>selfreq &lt;-<span class="st"> </span><span class="kw">sum</span>(prt_imp <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)</span>
@@ -591,7 +592,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ##               memory  
 ##               ... and 15 more source(s)
 ## names       :  Solution 1,  Solution 2,  Solution 3,  Solution 4,  Solution 5,  Solution 6, ... 
-## min values  :   Available,   Available,   Available,   Available,   Available,   Available, ... 
+## min values  :  Locked out,  Locked out,  Locked out,  Locked out,  Locked out,  Locked out, ... 
 ## max values  : Restoration, Restoration, Restoration, Restoration, Restoration, Restoration, ...</code></pre>
 <p>Although we generated a portfolio of different prioritizations, it’s difficult to tell which exactly which prioritizations are different to each other. Although we could try viewing the prioritizations one by one, this isn’t really practical. So, let’s conduct a statistical analysis to visualize differences among the planning units – based on which planning units they selected – using a hierarchical cluster analysis <span class="citation">(Harris <em>et al.</em> 2014)</span>.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># extract prioritization values</span></span>
@@ -705,42 +706,42 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## 35 336.67209 [ha]   336.67209 [ha]                22             2 2499.808 [m]
 ## 36 336.67209 [ha]   336.67209 [ha]                22             2 2499.808 [m]
 ##    optimality_proven search_state solving_time  mesh_initial          mesh
-## 1               TRUE   TERMINATED        4.526 13667.84 [ha] 14124.59 [ha]
-## 2               TRUE   TERMINATED        4.917 13667.84 [ha] 14124.59 [ha]
-## 3               TRUE   TERMINATED        4.988 13667.84 [ha] 14140.00 [ha]
-## 4               TRUE   TERMINATED        3.733 13667.84 [ha] 14155.43 [ha]
-## 5               TRUE   TERMINATED        3.214 13667.84 [ha] 14155.43 [ha]
-## 6               TRUE   TERMINATED        2.562 13667.84 [ha] 14170.86 [ha]
-## 7               TRUE   TERMINATED        2.763 13667.84 [ha] 14186.29 [ha]
-## 8               TRUE   TERMINATED        2.125 13667.84 [ha] 14201.74 [ha]
-## 9               TRUE   TERMINATED        1.815 13667.84 [ha] 14201.74 [ha]
-## 10              TRUE   TERMINATED        1.686 13667.84 [ha] 14217.20 [ha]
-## 11              TRUE   TERMINATED        1.487 13667.84 [ha] 14217.20 [ha]
-## 12              TRUE   TERMINATED        1.322 13667.84 [ha] 14232.66 [ha]
-## 13              TRUE   TERMINATED        0.860 13667.84 [ha] 14248.14 [ha]
-## 14              TRUE   TERMINATED        0.755 13667.84 [ha] 14248.14 [ha]
-## 15              TRUE   TERMINATED        0.669 13667.84 [ha] 14263.62 [ha]
-## 16              TRUE   TERMINATED        0.491 13667.84 [ha] 14263.62 [ha]
-## 17              TRUE   TERMINATED        0.320 13667.84 [ha] 14279.12 [ha]
-## 18              TRUE   TERMINATED        0.515 13667.84 [ha] 14279.12 [ha]
-## 19              TRUE   TERMINATED        0.426 13667.84 [ha] 14294.62 [ha]
-## 20              TRUE   TERMINATED        0.429 13667.84 [ha] 14294.62 [ha]
-## 21              TRUE   TERMINATED        0.347 13667.84 [ha] 14310.13 [ha]
-## 22              TRUE   TERMINATED        0.382 13667.84 [ha] 14310.13 [ha]
-## 23              TRUE   TERMINATED        0.522 13667.84 [ha] 14325.65 [ha]
-## 24              TRUE   TERMINATED        0.559 13667.84 [ha] 14325.65 [ha]
-## 25              TRUE   TERMINATED        0.346 13667.84 [ha] 14341.18 [ha]
-## 26              TRUE   TERMINATED        0.347 13667.84 [ha] 14341.18 [ha]
-## 27              TRUE   TERMINATED        0.368 13667.84 [ha] 14341.18 [ha]
-## 28              TRUE   TERMINATED        0.336 13667.84 [ha] 14341.18 [ha]
-## 29              TRUE   TERMINATED        0.361 13667.84 [ha] 14341.18 [ha]
-## 30              TRUE   TERMINATED        0.361 13667.84 [ha] 14341.18 [ha]
-## 31              TRUE   TERMINATED        0.345 13667.84 [ha] 14341.18 [ha]
-## 32              TRUE   TERMINATED        0.380 13667.84 [ha] 14341.18 [ha]
-## 33              TRUE   TERMINATED        0.327 13667.84 [ha] 14341.18 [ha]
-## 34              TRUE   TERMINATED        0.358 13667.84 [ha] 14341.18 [ha]
-## 35              TRUE   TERMINATED        0.393 13667.84 [ha] 14341.18 [ha]
-## 36              TRUE   TERMINATED        0.367 13667.84 [ha] 14341.18 [ha]
+## 1               TRUE   TERMINATED        6.646 13667.84 [ha] 14124.59 [ha]
+## 2               TRUE   TERMINATED        5.522 13667.84 [ha] 14124.59 [ha]
+## 3               TRUE   TERMINATED        5.001 13667.84 [ha] 14140.00 [ha]
+## 4               TRUE   TERMINATED        4.109 13667.84 [ha] 14155.43 [ha]
+## 5               TRUE   TERMINATED        4.407 13667.84 [ha] 14155.43 [ha]
+## 6               TRUE   TERMINATED        2.595 13667.84 [ha] 14170.86 [ha]
+## 7               TRUE   TERMINATED        2.796 13667.84 [ha] 14186.29 [ha]
+## 8               TRUE   TERMINATED        3.838 13667.84 [ha] 14201.74 [ha]
+## 9               TRUE   TERMINATED        2.355 13667.84 [ha] 14201.74 [ha]
+## 10              TRUE   TERMINATED        3.301 13667.84 [ha] 14217.20 [ha]
+## 11              TRUE   TERMINATED        2.315 13667.84 [ha] 14217.20 [ha]
+## 12              TRUE   TERMINATED        1.714 13667.84 [ha] 14232.66 [ha]
+## 13              TRUE   TERMINATED        1.112 13667.84 [ha] 14248.14 [ha]
+## 14              TRUE   TERMINATED        0.980 13667.84 [ha] 14248.14 [ha]
+## 15              TRUE   TERMINATED        0.827 13667.84 [ha] 14263.62 [ha]
+## 16              TRUE   TERMINATED        0.652 13667.84 [ha] 14263.62 [ha]
+## 17              TRUE   TERMINATED        0.666 13667.84 [ha] 14279.12 [ha]
+## 18              TRUE   TERMINATED        1.032 13667.84 [ha] 14279.12 [ha]
+## 19              TRUE   TERMINATED        0.569 13667.84 [ha] 14294.62 [ha]
+## 20              TRUE   TERMINATED        0.668 13667.84 [ha] 14294.62 [ha]
+## 21              TRUE   TERMINATED        0.518 13667.84 [ha] 14310.13 [ha]
+## 22              TRUE   TERMINATED        0.590 13667.84 [ha] 14310.13 [ha]
+## 23              TRUE   TERMINATED        0.808 13667.84 [ha] 14325.65 [ha]
+## 24              TRUE   TERMINATED        0.933 13667.84 [ha] 14325.65 [ha]
+## 25              TRUE   TERMINATED        0.549 13667.84 [ha] 14341.18 [ha]
+## 26              TRUE   TERMINATED        0.446 13667.84 [ha] 14341.18 [ha]
+## 27              TRUE   TERMINATED        0.530 13667.84 [ha] 14341.18 [ha]
+## 28              TRUE   TERMINATED        0.457 13667.84 [ha] 14341.18 [ha]
+## 29              TRUE   TERMINATED        0.454 13667.84 [ha] 14341.18 [ha]
+## 30              TRUE   TERMINATED        0.439 13667.84 [ha] 14341.18 [ha]
+## 31              TRUE   TERMINATED        0.549 13667.84 [ha] 14341.18 [ha]
+## 32              TRUE   TERMINATED        0.501 13667.84 [ha] 14341.18 [ha]
+## 33              TRUE   TERMINATED        0.391 13667.84 [ha] 14341.18 [ha]
+## 34              TRUE   TERMINATED        0.464 13667.84 [ha] 14341.18 [ha]
+## 35              TRUE   TERMINATED        0.432 13667.84 [ha] 14341.18 [ha]
+## 36              TRUE   TERMINATED        0.491 13667.84 [ha] 14341.18 [ha]
 ##        mesh_best max_restore
 ## 1  14124.59 [ha]         100
 ## 2  14124.59 [ha]         110
@@ -793,7 +794,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ##               memory  
 ##               ... and 33 more source(s)
 ## names       :  Solution 1,  Solution 1,  Solution 1,  Solution 1,  Solution 1,  Solution 1, ... 
-## min values  :   Available,   Available,   Available,   Available,   Available,   Available, ... 
+## min values  :  Locked out,  Locked out,  Locked out,  Locked out,  Locked out,  Locked out, ... 
 ## max values  : Restoration, Restoration, Restoration, Restoration, Restoration, Restoration, ...</code></pre>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># visualize some of the prioritizations in portfolio</span></span>
 <span id="cb38-2"><a href="#cb38-2"></a><span class="co">## here, titles indicate maximum area and values indicate:</span></span>

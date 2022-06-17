@@ -1,6 +1,6 @@
-efa3a1385c3a5335b64c3bcb3e331192 *DESCRIPTION
+97ff795b9137d0cb033c65f9c8d9754b *DESCRIPTION
 d76f7b4cb350ba51f68f0fd91ce5cd5a *NAMESPACE
-a1527e0a37ae41acd8229b265cbc83c3 *NEWS.md
+5954acff19d49cb2bc41ec4c415efe68 *NEWS.md
 194b02884f8028b7231129123642acd3 *R/add_available_areas_constraint.R
 4c19335f35527ae346b810328800fbbe *R/add_compactness_constraint.R
 1f29d356e4c94d0d350b4c17e9d316ad *R/add_components_constraint.R
@@ -29,11 +29,11 @@ ef32e8acb393c54db7df8d8ed9c91e7f *R/set_min_nb_pus_objective.R
 4d9ff906f0c11e3a249a065361e8200d *R/terra_utils.R
 b56ff2b193ecba52f9ec7f3b10cca008 *R/utils-pipe.R
 8acd88462fb3bb05da99b0d1e56a0740 *R/zzz.R
-766d2281c2855687c63ae9d56536ff0e *README.md
-e58c0b026bc3a44538527f47940b7a18 *build/vignette.rds
+bdb79166cd2001b3025a999aa0e074bd *README.md
+589dd339a937a3ae84901d5e1d27e29a *build/vignette.rds
 2e55000fcaa0e6d92b71777eb44ee921 *inst/CITATION
 fa0e566b4546dca6e6b39bdbcf70aa0d *inst/doc/restoptr.Rmd
-d13e01e6009b9753feb9bc6c27624aaa *inst/doc/restoptr.html
+648e07618eea6a42c61c42e7a315d105 *inst/doc/restoptr.html
 5afb205a9c5b8c5d217d82b4d177a9af *inst/extdata/accessible_areas.gpkg
 ad56172f36527ebca79899a7a4d81aa6 *inst/extdata/habitat_hi_res.tif
 899094e23266e32c1d6f8a6d6ad4043c *inst/extdata/locked_out.tif
@@ -48,9 +48,9 @@ f4df6b023c26d62f3212dab59a37a7e9 *man/add_components_constraint.Rd
 a9e046d0f638638e34cb258db0315a0b *man/add_min_mesh_constraint.Rd
 9b7918e5a25f7623252e392ffcb76969 *man/add_restorable_constraint.Rd
 d2cd5bef570daf633a2d08f604b984f5 *man/add_settings.Rd
-bf1c445a166a191c89768d6dd0cfe728 *man/figures/README-habitat_data-1.png
-93d1c61b078669cd6adef9914bab791e *man/figures/README-locked_out_data-1.png
-7b5f29ce76d6dafd2ba19f275a17e326 *man/figures/README-solution-1.png
+723452981829cba4a4f3ffb140191eb2 *man/figures/README-habitat_data-1.png
+c3e4fd4daed3f0a31cf59cef66b31b66 *man/figures/README-locked_out_data-1.png
+bcc233dc699f95d290adb3d452f1d486 *man/figures/README-solution-1.png
 c38c3b1b2c4b69aca5ff57eced9dd49a *man/figures/README-unnamed-chunk-10-1.png
 bf1c445a166a191c89768d6dd0cfe728 *man/figures/README-unnamed-chunk-11-1.png
 93d1c61b078669cd6adef9914bab791e *man/figures/README-unnamed-chunk-12-1.png
@@ -107,7 +107,7 @@ fee9bfd687bb3daf4b498fd5c699a509 *tests/testthat/test_set_max_iic_objective.R
 33b4a65a8e77f7ef314e74a5037ba248 *tests/testthat/test_set_max_restore_objective.R
 fa2a2dbb090c63a8b56ebe73ef211353 *tests/testthat/test_set_min_nb_pus_objective.R
 29aa0c88830f8665a934cb19aaf33990 *tests/testthat/test_set_min_restore_objective.R
-4b6390ccdc0d7f2b2c8f1eecdf297270 *tests/testthat/test_solve.R
+a971d9e7c59902fcdd0c7482357b2da6 *tests/testthat/test_solve.R
 abf3a032ad8286cd79bb55f9fb420a06 *tests/testthat/test_terra_io.R
 bc7311df4d7c7bb24d039d5e825b5f36 *vignettes/reference-style.csl
 2afd530f1676418417f644753f1ad21e *vignettes/references.bib
