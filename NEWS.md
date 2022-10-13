@@ -1,3 +1,8 @@
+# restoptr 1.0.2
+
+- Fix a few bugs.
+- Add a vignette to illustrate the submitted article case study.
+
 # restoptr 1.0.1
 
 - Update doc to fix a minor issue with r-oldrel-windows-ix86+x86_64

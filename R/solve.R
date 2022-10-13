@@ -78,7 +78,7 @@ solve.RestoptProblem <- function(a, b, ...) {
 
   if ("search_strategy" %in% names(args)) {
     assertthat::is.string(args$search_strategy)
-    search_strategy <- args$verbose
+    search_strategy <- args$search_strategy
   } else {
     search_strategy <- ""
   }
@@ -114,7 +114,8 @@ solve.RestoptProblem <- function(a, b, ...) {
       a$settings$precision,
       a$settings$time_limit,
       a$settings$optimality_gap,
-      verbose
+      verbose,
+      search_strategy
     ),
     silent = TRUE
   )
