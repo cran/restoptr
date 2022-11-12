@@ -40,12 +40,13 @@ restopt_solution <- function(restopt_problem, solution_raster, metadata, id_solu
     )
   )
   # convert object to RestoptSolution
-  names(solution_raster) <- paste("Solution", id_solution)
-  levels(solution_raster) <- c(
-    "Locked out",
-    "Available",
-    "Habitat",
-    "Restoration"
+  levels(solution_raster) <- data.frame(
+    id = c(0, 1, 2, 3),
+    label = c("Locked out", "Available", "Habitat", "Restoration")
+  )
+  names(solution_raster) <- paste0(
+    get_settings(restopt_problem)$solution_name_prefix,
+    id_solution
   )
   solution <- as(solution_raster, "RestoptSolution")
   solution@metadata <- metadata

@@ -1,7 +1,7 @@
 Package: restoptr
 Type: Package
 Title: Ecological Restoration Planning
-Version: 1.0.2
+Version: 1.0.3
 Description: 
   Flexible framework for ecological restoration planning. It aims to identify priority areas for restoration efforts using optimization algorithms (based on Justeau-Allaire et al. 2021 <doi:10.1111/1365-2664.13803>). Priority areas can be identified by maximizing landscape indices, such as the effective mesh size (Jaeger 2000 <doi:10.1023/A:1008129329289>), or the integral index of connectivity (Pascual-Hortal & Saura 2006 <doi:10.1007/s10980-006-0013-z>). Additionally, constraints can be used to ensure that priority areas exhibit particular characteristics (e.g., ensure that particular places are not selected for restoration, ensure that priority areas form a single contiguous network). Furthermore, multiple near-optimal solutions can be generated to explore multiple options in restoration planning. The package leverages the 'Choco-solver' software to perform optimization using constraint programming (CP) techniques (<https://choco-solver.org/>).
 Authors@R: 
@@ -30,7 +30,7 @@ Authors@R:
         'Philippe', 'Birnbaum', role = c('aut')
       )
     )
-License: GPL-3
+License: GPL (>= 3)
 Encoding: UTF-8
 Language: en-US
 URL: https://dimitri-justeau.github.io/restoptr/
@@ -59,7 +59,7 @@ Collate: 'internal.R' 'add_available_areas_constraint.R'
         'set_no_objective.R' 'solve.R' 'terra_io.R' 'terra_utils.R'
         'utils-pipe.R' 'zzz.R'
 NeedsCompilation: no
-Packaged: 2022-10-13 13:20:28 UTC; djusteau
+Packaged: 2022-11-12 13:22:13 UTC; justeau-allaire
 Author: Dimitri Justeau-Allaire [aut, cre]
     (<https://orcid.org/0000-0003-4129-0764>),
   Jeffrey O Hanson [aut] (<https://orcid.org/0000-0002-4716-6134>),
@@ -69,4 +69,4 @@ Author: Dimitri Justeau-Allaire [aut, cre]
   Philippe Birnbaum [aut]
 Maintainer: Dimitri Justeau-Allaire <dimitri.justeau@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-10-13 16:31:05 UTC
+Date/Publication: 2022-11-12 14:00:02 UTC
