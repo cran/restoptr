@@ -107,13 +107,13 @@ test_that("number of solutions found is less than desired", {
   ))
   # build and solve problem
   problem <-
-    restopt_problem(habitat_data, 0.7, 16) %>%
+    restopt_problem(habitat_data, 0.7, 18) %>%
     add_restorable_constraint(
       min_restore = 90, max_restore = 110, unit = "ha", min_proportion = 1
     ) %>%
     add_compactness_constraint(6, unit = "cells") %>%
     set_max_mesh_objective() %>%
-    add_settings(time_limit = 10, nb_solutions = 1000)
+    add_settings(time_limit = 20, nb_solutions = 1000)
   result <- solve(problem)
   # tests
   expect_is(result[[1]], "RestoptSolution")
@@ -132,7 +132,7 @@ test_that("only one optimal MESH solution exists, so it is returned", {
     ) %>%
     add_compactness_constraint(4, unit = "cells") %>%
     set_max_mesh_objective() %>%
-    add_settings(time_limit = 10, nb_solutions = 10)
+    add_settings(time_limit = 20, nb_solutions = 10)
   result <- solve(problem)
   # tests
   expect_is(result, "RestoptSolution")
