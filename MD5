@@ -1,6 +1,6 @@
-294130f6b1ecf6059c0d97adb630c256 *DESCRIPTION
+76ffd97acbbf16e894cd3d11e56cfe48 *DESCRIPTION
 1a72ae0e18ae06ce5cc5ac979a4ee091 *NAMESPACE
-f4217248703965afdace0838088a2dca *NEWS.md
+8559cdc96f3e05cbf433f52404378afe *NEWS.md
 7c634c2938a6ad1a2a5c71e759d3cec8 *R/add_available_areas_constraint.R
 4c19335f35527ae346b810328800fbbe *R/add_compactness_constraint.R
 1f29d356e4c94d0d350b4c17e9d316ad *R/add_components_constraint.R
@@ -16,7 +16,7 @@ edcf5d62fa0e1fdf90b2802bd4522033 *R/add_min_mesh_constraint.R
 3329ebbdd21a4025da210317dbfc5a42 *R/preprocessing.R
 a93792f450cb6d5adadaa01996571365 *R/restopt_component.R
 945b7b0d92184a22238da91669d98b29 *R/restopt_problem.R
-827dcd165f5137c1531b97092e421b25 *R/restopt_solution.R
+60d3a47d5e5eb4da887c4bb715a86c03 *R/restopt_solution.R
 a07e1a06e06101457f66db3f97cd1027 *R/set_max_iic_objective.R
 3c9485a0cc0632d01c182f8b0d904145 *R/set_max_mesh_objective.R
 aa2f54901a3d02138cf3184f1e467869 *R/set_max_nb_pus_objective.R
@@ -29,13 +29,13 @@ cc64275fac2357602056b176a697c4a4 *R/set_no_objective.R
 55b6b29502d9449e921cc8cb2159e489 *R/terra_utils.R
 b56ff2b193ecba52f9ec7f3b10cca008 *R/utils-pipe.R
 a4ac21a4d420e2997789854b3eb90075 *R/zzz.R
-f9b6f04ddebba492341cda82afe71fb7 *README.md
+1d5feaeb668fc4f00e22bca83f179064 *README.md
 90f381a6beaa88f493c645ea60207448 *build/vignette.rds
-2e55000fcaa0e6d92b71777eb44ee921 *inst/CITATION
+f4899ed4e25f7efbb91674136f491e8f *inst/CITATION
 f14e89192b55c36ca01027aeca70673d *inst/doc/case_study.Rmd
-f9d5d16e6b706c1a490b6125def1fd8d *inst/doc/case_study.html
+6f679223beca23e8e0ae97e023f895d3 *inst/doc/case_study.html
 e55c42250531519e10e45b45139e46c8 *inst/doc/restoptr.Rmd
-c66737b520abcfad0402eedd021f47e0 *inst/doc/restoptr.html
+44f991921910da228c59b0c962608b11 *inst/doc/restoptr.html
 fdf87c0cf72a1d8656c9416f3033e110 *inst/extdata/accessible_areas.gpkg
 ef1b40c12690a88ccdba7495ef209768 *inst/extdata/case_study/available.gpkg
 12f6a1318f7eb1f0066adaf41ce94a27 *inst/extdata/case_study/forest_1976.tif
@@ -56,9 +56,9 @@ bbe07ef12068611eeaa95c3dd95b8650 *man/add_settings.Rd
 f6fea644d42db24091371c7c06a3045b *man/area_to_nb_cells.Rd
 54d2babe1670b5dca09a1b94ceaa2799 *man/cell_area.Rd
 284e380bfd7c0a3ebbec6e09f5f1c98d *man/cell_width.Rd
-d5190c61f8f4fb21c5567eb9df57808e *man/figures/README-habitat_data-1.png
-62b381e8c569c6aa13db5cce9eca7ac9 *man/figures/README-locked_out_data-1.png
-02cb490f02f8f2f34c37863a4a6ad179 *man/figures/README-solution-1.png
+1ecc9ed8f6525d6f3c7f877b40d0543f *man/figures/README-habitat_data-1.png
+138c28ddccb8f72c3be7bef3b33ae9f0 *man/figures/README-locked_out_data-1.png
+1ec9605a3f72406bb8fdca22c4fc0697 *man/figures/README-solution-1.png
 c38c3b1b2c4b69aca5ff57eced9dd49a *man/figures/README-unnamed-chunk-10-1.png
 bf1c445a166a191c89768d6dd0cfe728 *man/figures/README-unnamed-chunk-11-1.png
 93d1c61b078669cd6adef9914bab791e *man/figures/README-unnamed-chunk-12-1.png
@@ -110,7 +110,7 @@ acd15c43bb8bcdfc116b7625491e1d75 *tests/testthat/test_add_components_constraint.
 288a20f63ba24506d68d5a412105fc39 *tests/testthat/test_add_min_mesh_constraint.R
 71e1a3f9d4b2c8d30ac0b60fb128a7cb *tests/testthat/test_add_restorable_constraint.R
 21a1e63febdfa6806dcdac25bb592d1b *tests/testthat/test_add_settings.R
-d2094169530dcf6428f9d2581679ee82 *tests/testthat/test_data.R
+c6c5ac630c832d9b3f1b22fcfbe41c2e *tests/testthat/test_data.R
 fded64aecf09f594f196c49e2d1da3a6 *tests/testthat/test_restopt_problem.R
 ee1a1babf3ea5836fb6424d4906c6b94 *tests/testthat/test_set_max_iic_objective.R
 4a52e24c1815ebf8d4750038b69bad69 *tests/testthat/test_set_max_mesh_objective.R
