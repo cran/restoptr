@@ -1,6 +1,6 @@
-76ffd97acbbf16e894cd3d11e56cfe48 *DESCRIPTION
+29779aabbdae610bbb2dd343a48c233e *DESCRIPTION
 1a72ae0e18ae06ce5cc5ac979a4ee091 *NAMESPACE
-8559cdc96f3e05cbf433f52404378afe *NEWS.md
+5531e02d90957f6d768adf0f69cd0661 *NEWS.md
 7c634c2938a6ad1a2a5c71e759d3cec8 *R/add_available_areas_constraint.R
 4c19335f35527ae346b810328800fbbe *R/add_compactness_constraint.R
 1f29d356e4c94d0d350b4c17e9d316ad *R/add_components_constraint.R
@@ -29,13 +29,13 @@ cc64275fac2357602056b176a697c4a4 *R/set_no_objective.R
 55b6b29502d9449e921cc8cb2159e489 *R/terra_utils.R
 b56ff2b193ecba52f9ec7f3b10cca008 *R/utils-pipe.R
 a4ac21a4d420e2997789854b3eb90075 *R/zzz.R
-1d5feaeb668fc4f00e22bca83f179064 *README.md
-90f381a6beaa88f493c645ea60207448 *build/vignette.rds
+897aff482c4525a8152a9c2a5701f13b *README.md
+c7036d83c0c8ba3895de600e0a0d0c69 *build/vignette.rds
 f4899ed4e25f7efbb91674136f491e8f *inst/CITATION
 f14e89192b55c36ca01027aeca70673d *inst/doc/case_study.Rmd
-6f679223beca23e8e0ae97e023f895d3 *inst/doc/case_study.html
+dfd194d5bd58b0dcc4c377d9aef2f480 *inst/doc/case_study.html
 e55c42250531519e10e45b45139e46c8 *inst/doc/restoptr.Rmd
-44f991921910da228c59b0c962608b11 *inst/doc/restoptr.html
+6b164efe7665f0293a4a60f420bd89cb *inst/doc/restoptr.html
 fdf87c0cf72a1d8656c9416f3033e110 *inst/extdata/accessible_areas.gpkg
 ef1b40c12690a88ccdba7495ef209768 *inst/extdata/case_study/available.gpkg
 12f6a1318f7eb1f0066adaf41ce94a27 *inst/extdata/case_study/forest_1976.tif
@@ -118,7 +118,7 @@ ee1a1babf3ea5836fb6424d4906c6b94 *tests/testthat/test_set_max_iic_objective.R
 33b4a65a8e77f7ef314e74a5037ba248 *tests/testthat/test_set_max_restore_objective.R
 fa2a2dbb090c63a8b56ebe73ef211353 *tests/testthat/test_set_min_nb_pus_objective.R
 29aa0c88830f8665a934cb19aaf33990 *tests/testthat/test_set_min_restore_objective.R
-c2dd3699c9f56225070aa5a7a88e5b2d *tests/testthat/test_solve.R
+fbc19ae6f7a0ae973ec5fec91615103e *tests/testthat/test_solve.R
 abf3a032ad8286cd79bb55f9fb420a06 *tests/testthat/test_terra_io.R
 f14e89192b55c36ca01027aeca70673d *vignettes/case_study.Rmd
 bc7311df4d7c7bb24d039d5e825b5f36 *vignettes/reference-style.csl
