@@ -23,7 +23,7 @@ must be restored in the selected planning units to reach the minimum habitat
 proportion threshold specified in the problem description,
 }
 \examples{
-\donttest{
+\dontrun{
 # load data
 habitat_data <- rast(
   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -67,6 +67,7 @@ Other objectives:
 \code{\link{set_max_mesh_objective}()},
 \code{\link{set_max_nb_pus_objective}()},
 \code{\link{set_max_restore_objective}()},
+\code{\link{set_min_nb_patches_objective}()},
 \code{\link{set_min_nb_pus_objective}()},
 \code{\link{set_no_objective}()}
 }

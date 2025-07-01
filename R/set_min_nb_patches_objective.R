@@ -1,24 +1,18 @@
 #' @include internal.R
 NULL
 
-#' Set an objective to maximize effective mesh size
+#' Set an objective to minimize the number of patches (habitat + restored areas)
 #'
 #' Specify that a restoration problem ([restopt_problem()]) should
-#' maximize effective mesh size.
+#' minimize the number of patches (habitat + restored areas).
 #'
 #' @param problem [restopt_problem()] Restoration problem object.
 #'
-#' @details The effective mesh size (MESH) is a measure of landscape fragmentation
-#' based on the probability that two randomly chosen points are located in the
-#' same patch (Jaeger, 2000). Maximizing it in the context of restoration
-#' favours fewer and larger patches.
+#' @details Patches correspond to the union of existing habitat and restored
+#' areas. Minimizing the number of patches improves structural connectivity
+#' in the habitat class.
 #'
 #' @return An updated restoration problem ([restopt_problem()]) object.
-#'
-#' @references
-#' Jaeger, J. A. G. (2000). Landscape division, splitting index, and effective
-#' mesh size: New measures of landscape fragmentation. Landscape Ecology, 15(2),
-#' 115‑130. https://doi.org/10.1023/A:1008129329289
 #'
 #' @family objectives
 #'
@@ -42,7 +36,7 @@ NULL
 #'     aggregation_factor = 16,
 #'     habitat_threshold = 0.7
 #'   ) %>%
-#'   set_max_mesh_objective() %>%
+#'   set_min_nb_patches_objective() %>%
 #'   add_restorable_constraint(
 #'     min_restore = 5,
 #'     max_restore = 5,
@@ -61,7 +55,7 @@ NULL
 #' }
 #'
 #' @export
-set_max_mesh_objective <- function(problem) {
+set_min_nb_patches_objective <- function(problem) {
   # assert argument is valid
   assertthat::assert_that(inherits(problem, "RestoptProblem"))
 
@@ -69,13 +63,13 @@ set_max_mesh_objective <- function(problem) {
   set_restopt_objective(
     problem = problem,
     objective = restopt_component(
-      name = "Maximize effective mesh size",
-      class = c("MaxMeshObjective", "RestoptObjectve"),
+      name = "Minimize number of habitat pacthes",
+      class = c("MinNbPatchesObjective", "RestoptObjectve"),
       post = function(jproblem, nb_solutions, precision, time_limit, optimality_gap,
                       verbose=FALSE, search_strategy="", lns=FALSE) {
         rJava::.jcall(
-          jproblem, "Ljava/util/List;", "maximizeMESH", nb_solutions, precision,
-          time_limit, optimality_gap, verbose, search_strategy, lns
+          jproblem, "Ljava/util/List;", "minimizeNbPatches", nb_solutions, time_limit,
+          optimality_gap, verbose, search_strategy, lns
         )
       }
     )

@@ -44,7 +44,7 @@ NULL
 #' @family objectives
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -109,10 +109,10 @@ set_max_iic_objective <- function(problem, distance_threshold = -1, unit = "m") 
       name = "Maximize integral index of connectivity",
       class = c("MaxIicObjective", "RestoptObjectve"),
       post = function(jproblem, nb_solutions, precision, time_limit, optimality_gap,
-                      verbose=FALSE, search_strategy="") {
+                      verbose=FALSE, search_strategy="", lns=FALSE) {
         rJava::.jcall(
           jproblem, "Ljava/util/List;", "maximizeIIC", nb_solutions, precision,
-          distance_threshold_unitless, time_limit, optimality_gap, verbose, search_strategy
+          distance_threshold_unitless, time_limit, optimality_gap, verbose, search_strategy, lns
         )
       }
     )

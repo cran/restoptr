@@ -23,7 +23,7 @@ same patch (Jaeger, 2000). Maximizing it in the context of restoration
 favours fewer and larger patches.
 }
 \examples{
-\donttest{
+\dontrun{
 # load data
 habitat_data <- rast(
   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -71,6 +71,7 @@ Other objectives:
 \code{\link{set_max_iic_objective}()},
 \code{\link{set_max_nb_pus_objective}()},
 \code{\link{set_max_restore_objective}()},
+\code{\link{set_min_nb_patches_objective}()},
 \code{\link{set_min_nb_pus_objective}()},
 \code{\link{set_min_restore_objective}()},
 \code{\link{set_no_objective}()}

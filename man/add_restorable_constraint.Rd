@@ -59,7 +59,7 @@ that needs to be restored to reach the \code{min_proportion} of habitat in every
 selected planning units.
 }
 \examples{
-\donttest{
+\dontrun{
 # load data
 habitat_data <- rast(
   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -101,6 +101,8 @@ Other constraints:
 \code{\link{add_connected_constraint}()},
 \code{\link{add_locked_out_constraint}()},
 \code{\link{add_min_iic_constraint}()},
-\code{\link{add_min_mesh_constraint}()}
+\code{\link{add_min_mesh_constraint}()},
+\code{\link{add_nb_patches_constraint}()},
+\code{\link{add_no_new_patch_constraint}()}
 }
 \concept{constraints}

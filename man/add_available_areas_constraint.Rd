@@ -50,7 +50,7 @@ with a different input data. Thus, from a modelling perspective,
 with an available areas constraint, you will see a locked out constraint.
 }
 \examples{
-\donttest{
+\dontrun{
 # load data
 habitat_data <- rast(
   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -97,6 +97,8 @@ Other constraints:
 \code{\link{add_locked_out_constraint}()},
 \code{\link{add_min_iic_constraint}()},
 \code{\link{add_min_mesh_constraint}()},
+\code{\link{add_nb_patches_constraint}()},
+\code{\link{add_no_new_patch_constraint}()},
 \code{\link{add_restorable_constraint}()}
 }
 \concept{constraints}

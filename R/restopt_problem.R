@@ -50,6 +50,14 @@ NULL
 #' `aggregation_factor = 2`, aggregated pixel will contain 4 original pixel.
 #' See `terra::aggregate()` for more details.
 #'
+#' @param lossless_aggregation `logical` If TRUE, uses restopt Java aggregation
+#' method, which is lossless, as it creates a two levels hierarchical square
+#' grid, in which planning units are packs of aggregated pixel that follow the
+#' geometry of the habitat raster. In this case, the habitat_threshold parameter
+#' is not needed anymore. If FALSE, uses restoptr original aggregation method,
+#' which is lossy because it creates a single aggregated grid, where a planning
+#' unit can contain both habitat and non-habitat pixels.
+#'
 #' @return A new restoration problem (`RestoptProblem`) object.
 #'
 #' @details This function creates the base restoration optimization problem
@@ -76,7 +84,7 @@ NULL
 #'@return None.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -97,61 +105,103 @@ NULL
 #' }
 #'
 #' @export
-restopt_problem <- function(existing_habitat, habitat_threshold = 1, aggregation_factor = 1) {
+restopt_problem <- function(existing_habitat, habitat_threshold = 1, aggregation_factor = 1,
+                            lossless_aggregation = FALSE) {
   # assert arguments are valid
   ## initial checks
   assertthat::assert_that(
     inherits(existing_habitat, "SpatRaster")
   )
-  if (aggregation_factor == 1 && habitat_threshold < 1) {
+  if (!lossless_aggregation && aggregation_factor == 1 && habitat_threshold < 1) {
     warning(paste("The habitat threshold parameter was automatically set to 1,",
                   "as the aggregation factor is 1"))
     habitat_threshold <- 1
   }
-  preprocessed <- preprocess_input(
-     habitat = existing_habitat,
-     habitat_threshold = habitat_threshold,
-     aggregation_factor = aggregation_factor
-  )
-  habitat_down <- preprocessed$existing_habitat
-  restorable_down <- preprocessed$restorable_habitat
-  cell_area <- preprocessed$cell_area
-  levels(habitat_down) <- data.frame(
-    id = c(0, 1),
-    label = c(
+  if (lossless_aggregation) {
+    if (habitat_threshold < 1) {
+      warning(paste("There is no habitat threshold with the lossless",
+                    " aggregation method"))
+      habitat_threshold <- 1
+    }
+    aggregation_method <- "lossless"
+    restorable_habitat <- existing_habitat == 0 * 1
+    cell_area <- existing_habitat >= 0
+    names(restorable_habitat) <- "Restorable habitat"
+    names(cell_area) <- "Cell area"
+    set_no_objective(
+      structure(
+        list(
+          data = list(
+            original_habitat = existing_habitat,
+            existing_habitat = existing_habitat,
+            restorable_habitat = restorable_habitat,
+            aggregation_factor = aggregation_factor,
+            aggregation_method = aggregation_method,
+            cell_area = cell_area,
+            habitat_threshold = habitat_threshold,
+            locked_out = round(restorable_habitat <= 0)
+          ),
+          constraints = list(),
+          objective = NULL,
+          settings = list(
+            precision = 4L,
+            time_limit = 0L,
+            nb_solutions = 1L,
+            optimality_gap = 0,
+            solution_name_prefix = "Solution "
+          )
+        ),
+        class = "RestoptProblem"
+      )
+    )
+  } else {
+    aggregation_method <- "lossy"
+    preprocessed <- preprocess_input(
+      habitat = existing_habitat,
+      habitat_threshold = habitat_threshold,
+      aggregation_factor = aggregation_factor
+    )
+    habitat_down <- preprocessed$existing_habitat
+    restorable_down <- preprocessed$restorable_habitat
+    cell_area <- preprocessed$cell_area
+    levels(habitat_down) <- data.frame(
+      id = c(0, 1),
+      label = c(
         paste("< ", habitat_threshold * 100,  "% habitat"),
         paste("\u2265 ", habitat_threshold * 100,  "% habitat")
+      )
     )
-  )
-  names(habitat_down) <- "Existing habitat (aggregated)"
-  names(restorable_down) <- "Restorable habitat (aggregated)"
-  names(cell_area) <- "Cell area (aggregated)"
-  # return object
-  set_no_objective(
-    structure(
-      list(
-        data = list(
-          original_habitat = existing_habitat,
-          existing_habitat = habitat_down,
-          restorable_habitat = restorable_down,
-          aggregation_factor = aggregation_factor,
-          cell_area = cell_area,
-          habitat_threshold = habitat_threshold,
-          locked_out = round(restorable_down <= 0)
+    names(habitat_down) <- "Existing habitat (aggregated)"
+    names(restorable_down) <- "Restorable habitat (aggregated)"
+    names(cell_area) <- "Cell area (aggregated)"
+    # return object
+    set_no_objective(
+      structure(
+        list(
+          data = list(
+            original_habitat = existing_habitat,
+            existing_habitat = habitat_down,
+            restorable_habitat = restorable_down,
+            aggregation_factor = aggregation_factor,
+            aggregation_method = aggregation_method,
+            cell_area = cell_area,
+            habitat_threshold = habitat_threshold,
+            locked_out = round(restorable_down <= 0)
+          ),
+          constraints = list(),
+          objective = NULL,
+          settings = list(
+            precision = 4L,
+            time_limit = 0L,
+            nb_solutions = 1L,
+            optimality_gap = 0,
+            solution_name_prefix = "Solution "
+          )
         ),
-        constraints = list(),
-        objective = NULL,
-        settings = list(
-          precision = 4L,
-          time_limit = 0L,
-          nb_solutions = 1L,
-          optimality_gap = 0,
-          solution_name_prefix = "Solution "
-        )
-      ),
-      class = "RestoptProblem"
+        class = "RestoptProblem"
+      )
     )
-  )
+  }
 }
 
 #' Print a restoration optimization problem
@@ -163,7 +213,7 @@ restopt_problem <- function(existing_habitat, habitat_threshold = 1, aggregation
 #' @param ... Arguments not used.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -214,10 +264,17 @@ print.RestoptProblem <- function(x, ...) {
     "\n"
   )
   cat(
-    crayon::bold(crayon::white("habitat threshold:   ")),
-    crayon::cyan(x$data$habitat_threshold),
+    crayon::bold(crayon::white("aggregation method:  ")),
+    crayon::cyan(x$data$aggregation_method),
     "\n"
   )
+  if (x$data$aggregation_method == "lossy") {
+    cat(
+      crayon::bold(crayon::white("habitat threshold:   ")),
+      crayon::cyan(x$data$habitat_threshold),
+      "\n"
+    )
+  }
   cat(
     crayon::bold(crayon::white("existing habitat:    ")),
     crayon::cyan(
@@ -351,7 +408,7 @@ set_restopt_objective <- function(problem, objective) {
 #' @return [terra::rast()] The original (i.e. not aggregated) habitat data.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -383,7 +440,7 @@ get_original_habitat <- function(problem) {
 #' @return [terra::rast()] The existing (aggregated) habitat data.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -415,7 +472,7 @@ get_existing_habitat <- function(problem) {
 #' @return [terra::rast()] The restorable habitat (aggregated) data.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -447,7 +504,7 @@ get_restorable_habitat <- function(problem) {
 #' @return `numeric` The aggregation factor of the restopt problem.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -472,6 +529,40 @@ get_aggregation_factor <- function(problem) {
   return(problem$data$aggregation_factor)
 }
 
+#' Retrieve the aggregation method of a restopt problem.
+#'
+#' @param problem [restopt_problem()] Restoration problem object.
+#'
+#' @return `character` The aggregation method of the restopt problem.
+#'
+#' @examples
+#' \dontrun{
+#' #' # load data
+#' habitat_data <- rast(
+#'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
+#' )
+#'
+#' # create problem
+#' problem <- restopt_problem(
+#'        existing_habitat = habitat_data,
+#'        aggregation_factor = 4,
+#'        habitat_threshold = 0.7,
+#'        lossless_aggregation = TRUE
+#' )
+#'
+#' get_aggregation_method(problem)
+#' }
+#'
+#' @export
+get_aggregation_method <- function(problem) {
+  # assert arguments are valid
+  assertthat::assert_that(
+    inherits(problem, "RestoptProblem")
+  )
+  return(problem$data$aggregation_method)
+}
+
+
 #' Retrieve the habitat threshold parameter of a restopt problem.
 #'
 #' @param problem [restopt_problem()] Restoration problem object.
@@ -479,7 +570,7 @@ get_aggregation_factor <- function(problem) {
 #' @return `numeric` The habitat threshold parameter of the restopt problem.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -511,7 +602,7 @@ get_habitat_threshold <- function(problem) {
 #' @return [terra::rast()] The locked out areas of the restopt problem.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -543,7 +634,7 @@ get_locked_out_areas <- function(problem) {
 #' @return [terra::rast()] The aggregated cell area of the restopt problem.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -575,7 +666,7 @@ get_cell_area <- function(problem) {
 #' @return `list` The constraints of the restopt problem.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -607,7 +698,7 @@ get_constraints <- function(problem) {
 #' @return `RestoptObjectve` The optimization objective of the restopt problem.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -639,7 +730,7 @@ get_objective <- function(problem) {
 #' @return `list` The settings associated with the restopt problem.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")

@@ -25,12 +25,31 @@ NULL
 #' @param b Argument not used.
 #'
 #' @param ... Additional arguments:
-#' `verbose`: if TRUE, output solver logs. (FALSE by default)
-#'
+#' `verbose` (logical) if TRUE, output solver logs. (FALSE by default)
+#' `search_strategy` (character) specify the solver's search strategy, among:
+#'                            "" -> default
+#'                            "RANDOM",
+#'                            "DOM_OVER_W_DEG",
+#'                            "DOM_OVER_W_DEG_REF",
+#'                            "MIN_DOM_LB",
+#'                            "MIN_DOM_UB",
+#'                            "ACTIVITY_BASED",
+#'                            "CONFLICT_HISTORY",
+#'                            "FAILURE_RATE",
+#'                            "FAILURE_LENGTH"
+#' `lns` (logical) if TRUE, activate Large Neighborhood Search (LNS). LNS
+#'    can boost the optimization efficiency for large problems, with the
+#'    price of less guarantees. Warning: it is highly recommended to set a
+#'    time limit when using LNS because optimality proof may become unreachable
+#'    (it depends on the characteristics of the problem), causing the solver to
+#'    run forever without a time limit. Also, while LNS may boost the solver,
+#'    it is very dependent on the problem's setting and size. It is recommended
+#'    to first try solving a problem without LNS, and then try it if the
+#'    results are not satisfactory.
 #' @return A [restopt_solution()] object.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # load data
 #' habitat_data <- rast(
 #'   system.file("extdata", "habitat_hi_res.tif", package = "restoptr")
@@ -83,11 +102,24 @@ solve.RestoptProblem <- function(a, b, ...) {
     search_strategy <- ""
   }
 
+  if ("lns" %in% names(args)) {
+    assertthat::is.flag(args$lns)
+    lns <- args$lns
+  } else {
+    lns <- FALSE
+  }
+
+  if (a$data$aggregation_method == "lossless") {
+    agg_factor <- as.integer(a$data$aggregation_factor)
+  } else {
+    agg_factor <- 1L
+  }
+
   jdata <- rJava::.jnew(
     "org.restopt.DataLoader",
     .jarray(as.integer(as.vector(a$data$existing_habitat))),
     .jarray(as.integer(as.vector(a$data$locked_out))),
-    .jarray(as.vector(a$data$restorable_habitat)),
+    .jarray(as.vector(as.double(a$data$restorable_habitat))),
     .jarray(as.integer(as.vector(a$data$cell_area))),
     as.integer(ncol(a$data$existing_habitat)),
     as.integer(nrow(a$data$existing_habitat)),
@@ -97,7 +129,7 @@ solve.RestoptProblem <- function(a, b, ...) {
   # initialize problem
   jproblem <-rJava::.jnew(
     "org.restopt.RestoptProblem", jdata,
-    0L
+    0L, agg_factor
   )
 
   # add constraints
@@ -115,7 +147,8 @@ solve.RestoptProblem <- function(a, b, ...) {
       a$settings$time_limit,
       a$settings$optimality_gap,
       verbose,
-      search_strategy
+      search_strategy,
+      lns
     ),
     silent = TRUE
   )
