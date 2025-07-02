@@ -1,6 +1,6 @@
-aeea66381af38674e895ead6f6a1ce67 *DESCRIPTION
+16e56e698e6e90e6a60057a4dfc23f55 *DESCRIPTION
 02469a81b2efd4fc2d6723299391d06e *NAMESPACE
-7815f699b6485ec603e90100d9ab65b9 *NEWS.md
+a2024628f88beee4bc3d70ff89b53a1b *NEWS.md
 46be7e5ab2a30fa6556fdefc845c3324 *R/add_available_areas_constraint.R
 040be1d8511b38ac8c4615a8a11b3360 *R/add_compactness_constraint.R
 fc1251e8069bde77b4bee249b0b692af *R/add_components_constraint.R
@@ -32,13 +32,13 @@ dc1294559cae1269284fcf84aa9d7778 *R/set_min_nb_pus_objective.R
 d3470ac73f77b2328860a7d94b3066fc *R/terra_utils.R
 b56ff2b193ecba52f9ec7f3b10cca008 *R/utils-pipe.R
 26f327a0ad821e1fb2fd48b4272838cd *R/zzz.R
-4b41c5beba3d39632f6b511e2605fa65 *README.md
+fdb6266eee848ecf44c4aaa7770b21dc *README.md
 fb0a8c1ae584fe616ba9d994dc2f0802 *build/vignette.rds
-f4899ed4e25f7efbb91674136f491e8f *inst/CITATION
+5e5e0311339087e5e14a25df14f63c2f *inst/CITATION
 f14e89192b55c36ca01027aeca70673d *inst/doc/case_study.Rmd
-ac4df82d1efc85c3bca1b32fb419f92a *inst/doc/case_study.html
+40016df86182c104ec8fe1fd5241c280 *inst/doc/case_study.html
 e55c42250531519e10e45b45139e46c8 *inst/doc/restoptr.Rmd
-ccf0ad6b08a3e2ca39d30663b9558004 *inst/doc/restoptr.html
+46a13ab9f585f121cb65f069d9850218 *inst/doc/restoptr.html
 fdf87c0cf72a1d8656c9416f3033e110 *inst/extdata/accessible_areas.gpkg
 ef1b40c12690a88ccdba7495ef209768 *inst/extdata/case_study/available.gpkg
 12f6a1318f7eb1f0066adaf41ce94a27 *inst/extdata/case_study/forest_1976.tif
@@ -98,7 +98,7 @@ b5d58dfc1e0bbb4e2dbdeff2c705ad06 *man/nb_cell_to_area.Rd
 7415a260c56f5e1f236ecff6baf05e14 *man/print.RestoptProblem.Rd
 0b5226e4d9abe382d5acd90ef9ca87ca *man/restopt_problem.Rd
 8ae2b0ff272d9ac8b79843f597231971 *man/restopt_solution.Rd
-a051b0a003a3bdbc18f2e4c4bd561ece *man/restoptr.Rd
+06a70f9fd8e6007c3aa7b2ffe7cae34a *man/restoptr.Rd
 ee1520ab8a073200eb45928c12dc3932 *man/set_max_iic_objective.Rd
 1ce88dd2e2cfbd955a0c839e91710219 *man/set_max_mesh_objective.Rd
 e477778ab091f1bd3164290efa7282bd *man/set_max_nb_pus_objective.Rd
@@ -129,7 +129,7 @@ ee1a1babf3ea5836fb6424d4906c6b94 *tests/testthat/test_set_max_iic_objective.R
 8aa1c011c0330528823f12b2dbc119bf *tests/testthat/test_set_min_nb_patches_objective.R
 fa2a2dbb090c63a8b56ebe73ef211353 *tests/testthat/test_set_min_nb_pus_objective.R
 29aa0c88830f8665a934cb19aaf33990 *tests/testthat/test_set_min_restore_objective.R
-261d74aa2079619f072917d0c2a494d8 *tests/testthat/test_solve.R
+cb30306570823ce72d6a1c603a36afc3 *tests/testthat/test_solve.R
 abf3a032ad8286cd79bb55f9fb420a06 *tests/testthat/test_terra_io.R
 f14e89192b55c36ca01027aeca70673d *vignettes/case_study.Rmd
 bc7311df4d7c7bb24d039d5e825b5f36 *vignettes/reference-style.csl
